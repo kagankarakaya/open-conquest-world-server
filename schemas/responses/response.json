@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "response",
+  "type": "object",
+  "properties": {
+      "service": {
+        "type": "string"
+      },
+      "operation": {
+        "type": "string"
+      },
+      "data": {
+        "type": "object"
+      }
+  },
+  "required": ["service", "operation", "data"],
+  "additionalProperties": false
+}

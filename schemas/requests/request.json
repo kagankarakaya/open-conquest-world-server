@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "request",
+  "type": "object",
+  "definitions": {
+    "service": {
+      "enum": [
+        "army",
+        "city",
+        "map",
+        "march",
+        "user"
+      ]
+    }
+  },
+  "properties": {
+      "service": {
+        "#ref": "#/definitions/service"
+      }
+  },
+  "required": ["service"],
+  "additionalProperties": false
+}
