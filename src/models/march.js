@@ -19,6 +19,16 @@ module.exports = (sequelize, DataTypes) => {
     end_tile_id: {
       type: DataTypes.INTEGER(11),
       allowNull: false
+    },
+    start_time: {
+      type: DataTypes.DATE
+    },
+    end_time: {
+      type: DataTypes.DATE
+    },
+    speed_modifier: {
+      type: DataTypes.FLOAT,
+      allowNull: false
     }
   }, {
     timestamps: false,
@@ -32,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
     models.march.belongsTo(models.tile, {
       foreignKey: 'start_tile_id'
     });
-    models.march.belongsTo(models.army, {
+    models.march.belongsTo(models.tile, {
       foreignKey: 'end_tile_id'
     });
   };

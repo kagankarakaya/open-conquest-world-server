@@ -19,10 +19,8 @@ describe('MapServices', function() {
       assert(map_data.length > 0);
       // assertions for map data
       for (let i = 0; i < map_data.length; i++) {
-        map_data[i].tile_id.should.equal(i+1);
         map_data[i].tile_row.should.equal(Math.floor((i)/10));
         map_data[i].tile_col.should.equal(i%10);
-        map_data[i].tile_type.should.equal('0');
         map_data[i].map_id.should.equal(1);
       }
 

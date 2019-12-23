@@ -46,7 +46,7 @@ CREATE TABLE `tile` (
   UNIQUE KEY `tile_id_UNIQUE` (`tile_id`),
   KEY `tile_map_idx` (`map_id`),
   CONSTRAINT `tile_map` FOREIGN KEY (`map_id`) REFERENCES `map` (`map_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `army` (
   `army_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -62,6 +62,9 @@ CREATE TABLE `march` (
   `army_id` int(11) NOT NULL,
   `start_tile_id` int(11) NOT NULL,
   `end_tile_id` int(11) NOT NULL,
+  `end_time` datetime DEFAULT NULL,
+  `start_time` datetime DEFAULT NULL,
+  `speed_modifier` float DEFAULT '1',
   PRIMARY KEY (`march_id`),
   UNIQUE KEY `march_id_UNIQUE` (`march_id`),
   UNIQUE KEY `army_id_UNIQUE` (`army_id`),
@@ -71,7 +74,8 @@ CREATE TABLE `march` (
   CONSTRAINT `march_army` FOREIGN KEY (`army_id`) REFERENCES `army` (`army_id`),
   CONSTRAINT `march_end_tile` FOREIGN KEY (`end_tile_id`) REFERENCES `tile` (`tile_id`),
   CONSTRAINT `march_start_tile` FOREIGN KEY (`start_tile_id`) REFERENCES `tile` (`tile_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 
 CREATE TABLE `city` (
   `user_id` int(11) NOT NULL,
@@ -98,6 +102,7 @@ INSERT INTO user (world_id, user_name) VALUES (@world_id, "test_user_5");
 
 INSERT INTO map (world_id) VALUES (@world_id);
 
+SET @tile_type = 0;
 DROP PROCEDURE CreateTiles;
 DELIMITER $$
 CREATE PROCEDURE CreateTiles()
@@ -115,7 +120,8 @@ BEGIN
 			IF col_num >= 10 THEN
 				LEAVE col_loop;
 			END IF;
-			INSERT INTO tile (map_id, tile_type, tile_row, tile_col) VALUES (1, 0, row_num, col_num);
+            SET @tile_type = ROUND((RAND() * (2-0))+0);
+			INSERT INTO tile (map_id, tile_type, tile_row, tile_col) VALUES (1, @tile_type, row_num, col_num);
 			SET col_num = col_num + 1;
 		END LOOP;
         SELECT row_num;
@@ -126,22 +132,48 @@ DELIMITER ;
 Call CreateTiles();
 
 # Insert cities
-INSERT INTO city (user_id, tile_id, city_name, city_level) VALUES (1, 1, "test_city_1", 1);
-INSERT INTO city (user_id, tile_id, city_name, city_level) VALUES (2, 15, "test_city_2", 2);
-INSERT INTO city (user_id, tile_id, city_name, city_level) VALUES (3, 29, "test_city_3", 3);
-INSERT INTO city (user_id, tile_id, city_name, city_level) VALUES (4, 43, "test_city_4", 4);
-INSERT INTO city (user_id, tile_id, city_name, city_level) VALUES (5, 57, "test_city_5", 5);
+SET @city_1_tile_id = 0;
+SET @city_2_tile_id = 0;
+SET @city_3_tile_id = 0;
+SET @city_4_tile_id = 0;
+SET @city_5_tile_id = 0;
+SELECT tile_id FROM tile WHERE tile_row = 0 AND tile_col = 0 INTO @city_1_tile_id;
+SELECT tile_id FROM tile WHERE tile_row = 2 AND tile_col = 4 INTO @city_2_tile_id;
+SELECT tile_id FROM tile WHERE tile_row = 5 AND tile_col = 5 INTO @city_3_tile_id;
+SELECT tile_id FROM tile WHERE tile_row = 5 AND tile_col = 8 INTO @city_4_tile_id;
+SELECT tile_id FROM tile WHERE tile_row = 7 AND tile_col = 7 INTO @city_5_tile_id;
+
+INSERT INTO city (user_id, tile_id, city_name, city_level) VALUES (1, @city_1_tile_id, "test_city_1", 1);
+INSERT INTO city (user_id, tile_id, city_name, city_level) VALUES (2, @city_2_tile_id, "test_city_2", 2);
+INSERT INTO city (user_id, tile_id, city_name, city_level) VALUES (3, @city_3_tile_id, "test_city_3", 3);
+INSERT INTO city (user_id, tile_id, city_name, city_level) VALUES (4, @city_4_tile_id, "test_city_4", 4);
+INSERT INTO city (user_id, tile_id, city_name, city_level) VALUES (5, @city_5_tile_id, "test_city_5", 5);
 
 # Insert armies
+SET @user_1_army_id = 0;
+SET @user_2_army_id = 0;
+
 INSERT INTO army (user_id) VALUES (1);
 INSERT INTO army (user_id) VALUES (2);
 INSERT INTO army (user_id) VALUES (3);
 INSERT INTO army (user_id) VALUES (4);
 INSERT INTO army (user_id) VALUES (5);
 
+SELECT army_id FROM army WHERE user_id = 1 INTO @user_1_army_id;
+SELECT army_id FROM army WHERE user_id = 2 INTO @user_2_army_id;
+
 # Insert marches
-INSERT INTO march (army_id, start_tile_id, end_tile_id) VALUES (1, 1, 15);
-INSERT INTO march (army_id, start_tile_id, end_tile_id) VALUES (2, 15, 29);
-INSERT INTO march (army_id, start_tile_id, end_tile_id) VALUES (3, 29, 43);
-INSERT INTO march (army_id, start_tile_id, end_tile_id) VALUES (4, 43, 57);
+INSERT INTO march (army_id, start_tile_id, end_tile_id, start_time, end_time) VALUES (@user_1_army_id, @city_1_tile_id, @city_2_tile_id, NOW(), DATE_ADD(NOW(), INTERVAL 30 MINUTE));
+INSERT INTO march (army_id, start_tile_id, end_tile_id, start_time, end_time) VALUES (@user_2_army_id, @city_2_tile_id, @city_1_tile_id, NOW(), DATE_ADD(NOW(), INTERVAL 30 MINUTE));
+-- INSERT INTO march (army_id, start_tile_id, end_tile_id) VALUES (2, 15, 29);
+-- INSERT INTO march (army_id, start_tile_id, end_tile_id) VALUES (3, 29, 43);
+-- INSERT INTO march (army_id, start_tile_id, end_tile_id) VALUES (4, 43, 57);
 SELECT * FROM march;
+-- CREATE USER zach IDENTIFIED BY 'zach'; 
+
+SELECT * FROM tile;
+
+-- SELECT * FROM army;
+-- SELECT * FROM city;
+-- SELECT * FROM tile;
+

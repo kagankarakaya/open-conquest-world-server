@@ -17,11 +17,8 @@ describe('TileServices', function() {
 
       // assertions for tile data
       let tile_data = res.data;
-      tile_data.tile_id.should.equal(1);
       tile_data.tile_row.should.equal(0);
       tile_data.tile_col.should.equal(0);
-      tile_data.tile_type.should.equal('0');
-      tile_data.tile_id.should.equal(1);
 
     }).catch(err => {
       throw err;

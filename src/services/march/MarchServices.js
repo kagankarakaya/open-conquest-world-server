@@ -13,9 +13,19 @@ class MarchServices extends BaseServices {
     };
   }
 
+  /**
+   * Query and return all of the marches and their associations
+   * data. Should return an array of march json objects.
+   *
+   * @param {*} request
+   * @returns
+   * @memberof MarchServices
+   */
   getMarch(request) {
     return new Promise( function(resolve, reject) {
-      models.march.findAll()
+      models.march.findAll({
+        include: [ models.tile ]
+      })
         .then(marches => {
           resolve(marches);
         })
@@ -25,8 +35,20 @@ class MarchServices extends BaseServices {
       });
   }
 
+  /**
+   * Handles requests for creating a new march. Responds with
+   * json data about the new march.
+   *
+   * @param {*} request
+   * @returns
+   * @memberof MarchServices
+   */
   createMarch(request) {
     return new Promise( function(resolve, reject) {
+
+      // todo: validation to ensure that the march can be made
+      // todo: a lot of other shit
+      // todo: broadcasting when a new march is made
       
       let marchData = request.data;
 
