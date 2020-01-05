@@ -24,9 +24,10 @@ class MarchServices extends BaseServices {
   getMarch(request) {
     return new Promise( function(resolve, reject) {
       models.march.findAll({
-        include: [ models.tile ]
+        include: [ 'startTile', 'endTile' ]
       })
         .then(marches => {
+          
           resolve(marches);
         })
         .catch(err => {

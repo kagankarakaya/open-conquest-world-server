@@ -40,10 +40,14 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'army_id'
     });
     models.march.belongsTo(models.tile, {
+      as: 'startTile',
       foreignKey: 'start_tile_id'
     });
     models.march.belongsTo(models.tile, {
-      foreignKey: 'end_tile_id'
+      as: 'endTile',
+      foreignKey: {
+        name: 'end_tile_id'
+      }
     });
   };
 

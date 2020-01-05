@@ -11,12 +11,29 @@ const Request         = require('../../../../src/Request');
 let marchServices     = new MarchServices();
 
 describe('MarchServices', function() {
-  it('should get expected test march', function() {
+
+  // test making a get marches request
+  // the marches returned should have the expected attributes
+  it('should get expected test marches', function() {
     let request = new Request('march', 'get', {});
     return marchServices.handle(request).then(res => {
 
       let march_data = res.data;
-      assert(march_data.length > 0);
+      assert(march_data.length == 2);
+      for (march in march_data) {
+        // ensure that marches have all the properties they should
+        expect(march.march_id).to.be.not.null;
+        expect(march.army_id).to.be.not.null;
+        expect(march.start_time).to.be.not.null;
+        expect(march.end_time).to.be.not.null;
+        expect(march.speed_modifier).to.be.not.null;
+        expect(march.startTile).to.be.not.null;
+        expect(march.startTile.tile_row).to.equal(0);
+        expect(march.startTile.tile_col).to.equal(0);
+        expect(march.endTile).to.be.not.null;
+        expect(march.endTile.tile_row).to.be.not.null;
+        expect(march.endTile.tile_col).to.be.not.null;
+      }
 
     }).catch(err => {
       throw err;
