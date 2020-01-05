@@ -1,4 +1,4 @@
-const log     = require('../../../src/utils/log');
+const log     = require('../../../../src/utils/log');
 const chai    = require('chai');
 const should  = chai.should();
 const expect  = chai.expect;
@@ -6,8 +6,8 @@ const assert  = chai.assert;
 
 // run all of the test on user services
 // ensure that messages are dispatched properly
-const UserServices    = require('../../../src/services/user/UserServices');
-const Request         = require('../../../src/Request');
+const UserServices    = require('../../../../src/services/user/UserServices');
+const Request         = require('../../../../src/Request');
 let userServices      = new UserServices();
 
 describe('UserServices', function() {

@@ -1,4 +1,4 @@
-const log     = require('../../../src/utils/log');
+const log     = require('../../../../src/utils/log');
 const chai    = require('chai');
 const should  = chai.should();
 const expect  = chai.expect;
@@ -6,8 +6,8 @@ const assert  = chai.assert;
 
 // run all of the test on map services
 // ensure that messages are dispatched properly
-const ArmyServices    = require('../../../src/services/army/ArmyServices');
-const Request         = require('../../../src/Request');
+const ArmyServices    = require('../../../../src/services/army/ArmyServices');
+const Request         = require('../../../../src/Request');
 let armyServices      = new ArmyServices();
 
 describe('ArmyServices', function() {

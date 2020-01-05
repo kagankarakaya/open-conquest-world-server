@@ -1,4 +1,4 @@
-const log     = require('../../../src/utils/log');
+const log     = require('../../../../src/utils/log');
 const chai    = require('chai');
 const should  = chai.should();
 const expect  = chai.expect;
@@ -6,8 +6,8 @@ const assert  = chai.assert;
 
 // run all of the test on march services
 // ensure that messages are dispatched properly
-const MarchServices   = require('../../../src/services/march/MarchServices');
-const Request         = require('../../../src/Request');
+const MarchServices   = require('../../../../src/services/march/MarchServices');
+const Request         = require('../../../../src/Request');
 let marchServices     = new MarchServices();
 
 describe('MarchServices', function() {
@@ -17,12 +17,6 @@ describe('MarchServices', function() {
 
       let march_data = res.data;
       assert(march_data.length > 0);
-      // assertions for march data
-      for (let i = 0; i < march_data.length; i++) {
-        march_data[i].army_id.should.equal(i+1);
-        march_data[i].start_tile_id.should.equal(1 + (i*14));
-        march_data[i].end_tile_id.should.equal(1 + (i+1)*14);
-      }
 
     }).catch(err => {
       throw err;
