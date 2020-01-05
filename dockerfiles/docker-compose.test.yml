@@ -15,10 +15,7 @@ services:
     depends_on:
       - "db"
     environment:
-      DB_HOSTNAME: db
-      DB_USERNAME: root
-      DB_PASSWORD: root
-      DB_NAME: master
+      ENV: test
     ports:
       - "1337:1337"
 volumes:

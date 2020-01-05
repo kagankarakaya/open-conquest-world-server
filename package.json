@@ -6,8 +6,6 @@
   "scripts": {
     "unit-tests": "node_modules/mocha/bin/mocha test/unit/",
     "integration-tests": "NODE_ENV=test node_modules/mocha/bin/mocha test/integration/services",
-    "dev": "docker-compose -f dockerfiles/docker-compose.yml up --build",
-    "all-tests": "node_modules/mocha/bin/mocha test/",
     "start": "NODE_ENV=test node src/WorldServer.js"
   },
   "keywords": [],
