@@ -1,3 +1,4 @@
+-- CREATE SCHEMA master;
 USE master;
 
 DROP TABLE IF EXISTS city;
@@ -39,7 +40,7 @@ CREATE TABLE `map` (
 CREATE TABLE `tile` (
   `tile_id` int(11) NOT NULL AUTO_INCREMENT,
   `map_id` int(11) NOT NULL,
-  `tile_type` varchar(45) NOT NULL,
+  `tile_type` int(11) NOT NULL,
   `tile_row` int(11) NOT NULL,
   `tile_col` int(11) NOT NULL,
   PRIMARY KEY (`tile_id`),
@@ -103,7 +104,7 @@ INSERT INTO user (world_id, user_name) VALUES (@world_id, "test_user_5");
 INSERT INTO map (world_id) VALUES (@world_id);
 
 SET @tile_type = 0;
-DROP PROCEDURE CreateTiles;
+DROP PROCEDURE IF EXISTS CreateTiles;
 DELIMITER $$
 CREATE PROCEDURE CreateTiles()
 BEGIN
@@ -120,7 +121,13 @@ BEGIN
 			IF col_num >= 10 THEN
 				LEAVE col_loop;
 			END IF;
-            SET @tile_type = ROUND((RAND() * (2-0))+0);
+            SET @tile_type = ROUND((RAND() * (25-0))+0);
+            SET @tile_type = 0;
+            -- IF @tile_type > 1 THEN
+-- 				SET @tile_type = 0;
+-- 			ELSE
+-- 				SET @tile_type = 1;
+-- 			END IF;
 			INSERT INTO tile (map_id, tile_type, tile_row, tile_col) VALUES (1, @tile_type, row_num, col_num);
 			SET col_num = col_num + 1;
 		END LOOP;
@@ -145,9 +152,7 @@ SELECT tile_id FROM tile WHERE tile_row = 7 AND tile_col = 7 INTO @city_5_tile_i
 
 INSERT INTO city (user_id, tile_id, city_name, city_level) VALUES (1, @city_1_tile_id, "test_city_1", 1);
 INSERT INTO city (user_id, tile_id, city_name, city_level) VALUES (2, @city_2_tile_id, "test_city_2", 2);
-INSERT INTO city (user_id, tile_id, city_name, city_level) VALUES (3, @city_3_tile_id, "test_city_3", 3);
-INSERT INTO city (user_id, tile_id, city_name, city_level) VALUES (4, @city_4_tile_id, "test_city_4", 4);
-INSERT INTO city (user_id, tile_id, city_name, city_level) VALUES (5, @city_5_tile_id, "test_city_5", 5);
+UPDATE tile SET tile_type = 1 WHERE (tile_id = @city_1_tile_id) OR (tile_id = @city_2_tile_id);
 
 # Insert armies
 SET @user_1_army_id = 0;
@@ -163,17 +168,5 @@ SELECT army_id FROM army WHERE user_id = 1 INTO @user_1_army_id;
 SELECT army_id FROM army WHERE user_id = 2 INTO @user_2_army_id;
 
 # Insert marches
-INSERT INTO march (army_id, start_tile_id, end_tile_id, start_time, end_time) VALUES (@user_1_army_id, @city_1_tile_id, @city_2_tile_id, NOW(), DATE_ADD(NOW(), INTERVAL 30 MINUTE));
-INSERT INTO march (army_id, start_tile_id, end_tile_id, start_time, end_time) VALUES (@user_2_army_id, @city_2_tile_id, @city_1_tile_id, NOW(), DATE_ADD(NOW(), INTERVAL 30 MINUTE));
--- INSERT INTO march (army_id, start_tile_id, end_tile_id) VALUES (2, 15, 29);
--- INSERT INTO march (army_id, start_tile_id, end_tile_id) VALUES (3, 29, 43);
--- INSERT INTO march (army_id, start_tile_id, end_tile_id) VALUES (4, 43, 57);
-SELECT * FROM march;
--- CREATE USER zach IDENTIFIED BY 'zach'; 
-
-SELECT * FROM tile;
-
--- SELECT * FROM army;
--- SELECT * FROM city;
--- SELECT * FROM tile;
-
+INSERT INTO march (army_id, start_tile_id, end_tile_id, start_time, end_time) VALUES (@user_1_army_id, @city_1_tile_id, @city_2_tile_id, NOW(), DATE_ADD(NOW(), INTERVAL 1 MINUTE));
+INSERT INTO march (army_id, start_tile_id, end_tile_id, start_time, end_time) VALUES (@user_2_army_id, @city_2_tile_id, @city_1_tile_id, NOW(), DATE_ADD(NOW(), INTERVAL 1 MINUTE));
