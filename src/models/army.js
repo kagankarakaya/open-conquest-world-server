@@ -20,6 +20,9 @@ module.exports = (sequelize, DataTypes) => {
     models.army.belongsTo(models.user, {
       foreignKey: 'user_id'
     });
+    models.army.hasMany(models.army_units, {
+      foreignKey: 'army_id'
+    });
   };
 
   return army;

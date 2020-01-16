@@ -26,14 +26,13 @@ class MarchServices extends BaseServices {
       models.march.findAll({
         include: [ 'startTile', 'endTile' ]
       })
-        .then(marches => {
-          
-          resolve(marches);
-        })
-        .catch(err => {
-          reject(err);
-        })
-      });
+      .then(marches => {
+        resolve(marches);
+      })
+      .catch(err => {
+        reject(err);
+      })
+    });
   }
 
   /**
