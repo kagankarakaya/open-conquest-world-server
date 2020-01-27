@@ -47,9 +47,10 @@ class MarchServices extends BaseServices {
     return new Promise( function(resolve, reject) {
 
       // todo: validation to ensure that the march can be made
-      // todo: a lot of other shit
+      // todo: actually making the new march
+      // todo: return changes to army to client
       // todo: broadcasting when a new march is made
-      
+
       let marchData = request.data;
 
       models.march.create({
