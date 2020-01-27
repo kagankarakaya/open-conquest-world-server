@@ -1,4 +1,4 @@
-const log     = require('../../../../src/utils/log');
+const log     = require('../../../src/utils/log');
 const chai    = require('chai');
 const should  = chai.should();
 const expect  = chai.expect;
@@ -7,7 +7,7 @@ const assert  = chai.assert;
 // run all of the test on march services
 // ensure that messages are dispatched properly
 const MarchServices   = require('../../../../src/services/march/MarchServices');
-const Request         = require('../../../../src/Request');
+const Request         = require('../../../src/Request');
 let marchServices     = new MarchServices();
 
 describe('MarchServices', function() {
