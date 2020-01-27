@@ -7,11 +7,9 @@ const logError = require('./utils/log').logError;
 const WSS = require('websocket').server;
 const HTTP = require('http');
 const PORT = 1337;
-const WorldServices = require('./WorldServices');
-const models = require('./models');
-
 
 // CREATE WORLD SERVICES
+const WorldServices = require('./WorldServices');
 const ArmyServices = require('./services/army/ArmyServices');
 const CityServices = require('./services/city/CityServices');
 const MapServices = require('./services/map/MapServices');
