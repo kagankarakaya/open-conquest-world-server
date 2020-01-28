@@ -19,5 +19,8 @@
     "websocket": "^1.0.30",
     "winston": "^3.2.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-google": "^0.14.0"
+  }
 }
