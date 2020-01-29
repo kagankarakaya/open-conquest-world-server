@@ -1,9 +1,18 @@
-import {log} from '../utils/log';
-import {logError as logError} from '../utils/log';
 import {BaseServices} from './BaseServices';
 import {models} from '../models';
 
+/**
+ *
+ *
+ * @export
+ * @class ArmyServices
+ * @extends {BaseServices}
+ */
 export class ArmyServices extends BaseServices {
+  /**
+   *Creates an instance of ArmyServices.
+   * @memberof ArmyServices
+   */
   constructor() {
     super();
     this.service = 'army';
@@ -12,6 +21,12 @@ export class ArmyServices extends BaseServices {
     };
   }
 
+  /**
+   *
+   *
+   * @param {*} request
+   * @memberof ArmyServices
+   */
   getArmy(request) {
     // return new Promise( function(resolve, reject) {
     //   models.army.findAll({

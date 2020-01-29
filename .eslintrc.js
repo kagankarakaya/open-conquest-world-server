@@ -1,6 +1,6 @@
 module.exports = {
   'env': {
-    'browser': true,
+    'browser': false,
     'es6': true,
   },
   'extends': [
@@ -12,12 +12,15 @@ module.exports = {
   },
   'parser': '@typescript-eslint/parser',
   'parserOptions': {
-    'ecmaVersion': 2018,
+    'ecmaVersion': 2017,
     'sourceType': 'module',
   },
   'plugins': [
     '@typescript-eslint/',
   ],
   'rules': {
+    'new-cap': ['error', {
+        'properties': false
+    }]
   },
 };
