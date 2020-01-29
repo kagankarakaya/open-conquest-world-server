@@ -1,28 +1,25 @@
-module.exports = (sequelize, DataTypes) => {
-  let unit = sequelize.define('unit', {
-    unit_id: {
+export default (sequelize, DataTypes) => {
+  const city = sequelize.define('city', {
+    city_id: {
       type: DataTypes.INTEGER(11),
       primaryKey: true,
       allowNull: false,
-      unique: true
+      unique: true,
+      autoIncrement: true
     },
-    attack: {
+    user_id: {
       type: DataTypes.INTEGER(11),
       allowNull: false
     },
-    defense: {
+    tile_id: {
       type: DataTypes.INTEGER(11),
       allowNull: false
     },
-    name: {
+    city_name: {
       type: DataTypes.STRING(45),
       allowNull: false
     },
-    level: {
-      type: DataTypes.INTEGER(11),
-      allowNull: false
-    },
-    gold_cost: {
+    city_level: {
       type: DataTypes.INTEGER(11),
       allowNull: false
     }
@@ -31,8 +28,14 @@ module.exports = (sequelize, DataTypes) => {
     freezeTableName: true
   });
 
-  unit.associate = function (models) {
+  city.associate = (models) => {
+    models.city.belongsTo(models.user, {
+      foreignKey: 'user_id'
+    });
+    models.city.belongsTo(models.tile, {
+      foreignKey: 'tile_id'
+    });
   };
 
-  return unit;
+  return city;
 };

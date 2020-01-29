@@ -1,15 +1,11 @@
-module.exports = (sequelize, DataTypes) => {
-  let user = sequelize.define('user', {
-    user_id: {
+export default (sequelize, DataTypes) => {
+  const map = sequelize.define('map', {
+    map_id: {
       type: DataTypes.INTEGER(11),
       primaryKey: true,
       allowNull: false,
       unique: true,
       autoIncrement: true
-    },
-    user_name: {
-      type: DataTypes.STRING(45),
-      allowNull: false
     },
     world_id: {
       type: DataTypes.INTEGER(11),
@@ -20,11 +16,11 @@ module.exports = (sequelize, DataTypes) => {
     freezeTableName: true
   });
 
-  user.associate = function (models) {
-    models.user.belongsTo(models.world, {
+  map.associate = (models) => {
+    models.map.belongsTo(models.world, {
       foreignKey: 'world_id'
     });
   };
 
-  return user;
+  return map;
 };
