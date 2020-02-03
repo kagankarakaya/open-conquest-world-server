@@ -1,15 +1,6 @@
--- CREATE SCHEMA master;
+DROP DATABASE IF EXISTS master;
+CREATE DATABASE master;
 USE master;
-
-DROP TABLE IF EXISTS city;
-DROP TABLE IF EXISTS march;
-DROP TABLE IF EXISTS tile;
-DROP TABLE IF EXISTS map;
-DROP TABLE IF EXISTS army_units;
-DROP TABLE IF EXISTS unit;
-DROP TABLE IF EXISTS army;
-DROP TABLE IF EXISTS user;
-DROP TABLE IF EXISTS world;
 
 CREATE TABLE `world` (
   `world_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -17,7 +8,7 @@ CREATE TABLE `world` (
   PRIMARY KEY (`world_id`),
   UNIQUE KEY `world_id_UNIQUE` (`world_id`),
   UNIQUE KEY `world_name_UNIQUE` (`world_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 CREATE TABLE `user` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -28,7 +19,7 @@ CREATE TABLE `user` (
   UNIQUE KEY `user_name_UNIQUE` (`user_name`),
   KEY `user_world_idx` (`world_id`),
   CONSTRAINT `user_world` FOREIGN KEY (`world_id`) REFERENCES `world` (`world_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 CREATE TABLE `map` (
   `map_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -37,7 +28,7 @@ CREATE TABLE `map` (
   UNIQUE KEY `world_id_UNIQUE` (`map_id`),
   KEY `map_world_idx` (`world_id`),
   CONSTRAINT `map_world` FOREIGN KEY (`world_id`) REFERENCES `world` (`world_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 CREATE TABLE `tile` (
   `tile_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -49,7 +40,7 @@ CREATE TABLE `tile` (
   UNIQUE KEY `tile_id_UNIQUE` (`tile_id`),
   KEY `tile_map_idx` (`map_id`),
   CONSTRAINT `tile_map` FOREIGN KEY (`map_id`) REFERENCES `map` (`map_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 CREATE TABLE `army` (
   `army_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -58,7 +49,7 @@ CREATE TABLE `army` (
   UNIQUE KEY `army_id_UNIQUE` (`army_id`),
   KEY `army_user_idx` (`user_id`),
   CONSTRAINT `army_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 CREATE TABLE `unit` (
   `unit_id` int(11) NOT NULL,
@@ -69,7 +60,7 @@ CREATE TABLE `unit` (
   `gold_cost` int(11) NOT NULL,
   PRIMARY KEY (`unit_id`),
   UNIQUE KEY `unit_id_UNIQUE` (`unit_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 CREATE TABLE `army_units` (
   `army_id` int(11) NOT NULL,
@@ -82,7 +73,7 @@ CREATE TABLE `army_units` (
   KEY `army_units_unit_id_idx` (`unit_id`),
   CONSTRAINT `army_units_army_id` FOREIGN KEY (`army_id`) REFERENCES `army` (`army_id`),
   CONSTRAINT `army_units_unit_id` FOREIGN KEY (`unit_id`) REFERENCES `unit` (`unit_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 CREATE TABLE `march` (
   `march_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -101,7 +92,7 @@ CREATE TABLE `march` (
   CONSTRAINT `march_army` FOREIGN KEY (`army_id`) REFERENCES `army` (`army_id`),
   CONSTRAINT `march_end_tile` FOREIGN KEY (`end_tile_id`) REFERENCES `tile` (`tile_id`),
   CONSTRAINT `march_start_tile` FOREIGN KEY (`start_tile_id`) REFERENCES `tile` (`tile_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 CREATE TABLE `city` (
   `user_id` int(11) NOT NULL,
@@ -115,7 +106,7 @@ CREATE TABLE `city` (
   KEY `city_user` (`user_id`),
   CONSTRAINT `city_tile` FOREIGN KEY (`tile_id`) REFERENCES `tile` (`tile_id`),
   CONSTRAINT `city_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 SET @world_id = 1;
 INSERT INTO world (world_id, world_name) VALUES (@world_id, "world_1");
