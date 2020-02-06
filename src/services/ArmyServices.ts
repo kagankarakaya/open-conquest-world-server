@@ -1,5 +1,11 @@
 import {BaseServices} from './BaseServices';
-import {models} from '../models';
+import {Response} from '../Response';
+import {Request} from '../Request';
+import {ArmyRepository} from '../repos/implementations/ArmyRepository';
+import {Army} from '../domain/Army';
+import {GetArmiesResponse} from '../GetArmiesResponse';
+import {User} from '../domain/User';
+import {EntityId} from '../domain/Entity';
 
 /**
  *
@@ -9,40 +15,40 @@ import {models} from '../models';
  * @extends {BaseServices}
  */
 export class ArmyServices extends BaseServices {
+  private armyRepository: ArmyRepository
+
   /**
-   *Creates an instance of ArmyServices.
+   * Creates an instance of ArmyServices.
+   * @param {ArmyRepository} armyRepository
    * @memberof ArmyServices
    */
   constructor() {
     super();
+    this.armyRepository = new ArmyRepository();
     this.service = 'army';
     this.handlers = {
-      'get': this.getArmy,
+      'get': this.getArmies,
     };
   }
 
   /**
+   * Returns an array of the user's `Army`s.
    *
-   *
-   * @param {*} request
+   * @param {User} user
+   * @return {Promise<Array<Army>>}
    * @memberof ArmyServices
    */
-  getArmy(request) {
-    // return new Promise( function(resolve, reject) {
-    //   models.army.findAll({
-    //     include: {
-    //       model: models.army_units,
-    //       include: {
-    //         model: models.unit,
-    //       },
-    //     },
-    //   })
-    //       .then((armies) => {
-    //         resolve(armies);
-    //       })
-    //       .catch((err) => {
-    //         reject(err);
-    //       });
-    // });
+  async getArmies(user: User): Promise<any> {
+    const armyRepository = this.armyRepository;
+    return new Promise( function(resolve, reject) {
+      armyRepository.getAllArmies(user)
+          .then((armies) => {
+            const response = new GetArmiesResponse(user, armies);
+            resolve(response);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+    });
   }
 }
