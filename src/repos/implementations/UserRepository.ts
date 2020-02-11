@@ -24,25 +24,6 @@ export class UserRepository implements IUserRepository {
   }
 
   /**
-   * Gets all of the users in this world.
-   *
-   * @return {Promise<Array<User>>}
-   * @memberof UserRepository
-   */
-  getAllUsers(): Promise<Array<User>> {
-    const models = this.models;
-    return new Promise(function(resolve, reject) {
-      models.user.findAll({})
-          .then((users) => {
-            resolve(users);
-          })
-          .catch((err) => {
-            reject(err);
-          });
-    });
-  }
-
-  /**
    * Get a user with username.
    *
    * @param {string} username
@@ -56,8 +37,39 @@ export class UserRepository implements IUserRepository {
         where: {username: username},
       })
           .then((user) => {
-            // const newUser = User.fromSequelize(user);
-            resolve(user);
+            // if there is no user with username
+            if (user === null) {
+              reject(new Error('No user with username: ' + username));
+            }
+            resolve(new User(user.user_id, user.username));
+          })
+          .catch((err) => {
+            reject(err);
+          });
+    });
+  }
+
+  /**
+   * Get a user and their password.
+   *
+   * @param {string} username
+   * @return {Promise<User>}
+   * @memberof UserRepository
+   */
+  getUserPasswordWithUsername(username: string): Promise<User> {
+    const models = this.models;
+    return new Promise( function(resolve, reject) {
+      models.user.findOne({
+        where: {username: username},
+      })
+          .then((user) => {
+            // if there is no user
+            if (user === null) {
+              reject(new Error('No user with username: ' + username));
+            }
+            const newUser = new User(user.user_id, user.username);
+            newUser.setPassword(user.password);
+            resolve(newUser);
           })
           .catch((err) => {
             reject(err);
