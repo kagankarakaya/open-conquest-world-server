@@ -20,7 +20,7 @@ const logger = createLogger({
 //  * @export
 //  * @param {*} msg
 //  */
-// function log(msg) {
+// function log.info(msg) {
 //   logger.info(msg);
 // }
 

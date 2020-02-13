@@ -81,7 +81,7 @@ describe('UserRepository', function() {
   //         assert(user.user_name === username);
   //       })
   //       .catch((err) => {
-  //         log(err);
+  //         log.error(err);
   //         throw err;
   //       });
   // });
@@ -99,7 +99,7 @@ describe('UserRepository', function() {
   //         assert(user === null);
   //       })
   //       .catch((err) => {
-  //         log(err);
+  //         log.error(err);
   //         throw err;
   //       });
   // });

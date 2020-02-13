@@ -29,7 +29,7 @@ describe('ArmyRepository', function() {
           throw new Error('no assertions implemented');
         })
         .catch((err) => {
-          log(err);
+          log.error(err);
           throw err;
         });
   });

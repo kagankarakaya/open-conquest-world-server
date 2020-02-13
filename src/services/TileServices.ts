@@ -36,7 +36,7 @@ export class TileServices extends BaseServices {
    * @memberof TileServices
    */
   getTile(request) {
-    log('Getting tile for request:' + request);
+    log.info('Getting tile for request:' + request);
     // return new Promise(function(resolve, reject) {
     //   const row = request.data.tile_row;
     //   const col = request.data.tile_col;

@@ -18,7 +18,7 @@ export class WorldServices {
    * @memberof WorldServices
    */
   constructor() {
-    log('WorldService initialized.');
+    log.info('WorldService initialized.');
     this.services = new Map<ServiceNames, BaseServices>();
   }
 
@@ -40,7 +40,7 @@ export class WorldServices {
    * @memberof WorldServices
    */
   dispatchRequest(json): any {
-    log('WorldService received json: ' + JSON.stringify(json));
+    log.info('WorldServices received json: ' + JSON.stringify(json));
 
     const services = this.services;
     return new Promise( function(resolve, reject) {
@@ -50,14 +50,14 @@ export class WorldServices {
         reject(err);
       }
       // check if service exists
-      if (services.get(json.service) === null) {
+      if (services.get(json.service) === undefined) {
         reject(new Error('Unrecognized service: ' + json.service));
         return;
       }
       services.get(json.service).handle(json)
           .then((res) => {
             const response = JSON.stringify(res);
-            log('WorldService returning response: ' + response);
+            log.info('WorldService returning response: ' + response);
             resolve(res);
           })
           .catch((err) => {

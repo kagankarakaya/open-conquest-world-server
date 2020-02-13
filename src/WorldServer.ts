@@ -3,7 +3,6 @@
  * connections to the server, and dispatching request to the World Services.
  */
 import {log} from 'src/utils/log';
-import {logError as logError} from 'src/utils/log';
 import {server as WSS} from 'websocket';
 import * as HTTP from 'http';
 const PORT = 1337;
@@ -19,7 +18,7 @@ const wss = new WSS({
 // HANDLE CLIENT CONNECT
 const clients = [];
 wss.on('request', function(request) {
-  log('Connection from: '+ request.origin);
+  log.info('Connection from: '+ request.origin);
 
   // add new connection to list of connected clients
   const connection = request.accept(null, request.origin);
@@ -27,24 +26,24 @@ wss.on('request', function(request) {
 
   // HANDLE CLIENT SEND REQUEST
   connection.on('message', function(request) {
-    log('Recieved message from connection ' + connection.remoteAddress);
+    log.info('Recieved message from connection ' + connection.remoteAddress);
     worldServices.dispatchRequest(request)
         .then((res) => {
           const clientAddr = connection.remoteAddress;
-          log('Sending: ' + clientAddr + ' response: ' + JSON.stringify(res));
+          log.info('Sending: ' + clientAddr + ' response: ' + JSON.stringify(res));
           connection.sendUTF(res);
         })
         .catch((err) => {
           const clientAddr = connection.remoteAddress;
-          logError('Sending: ' + clientAddr + ' error: ' + JSON.stringify(err));
-          logError(err.stack);
+          log.error('Sending: ' + clientAddr + ' error: ' + JSON.stringify(err));
+          log.error(err.stack);
           connection.sendUTF(err);
         });
   });
 
   // HANDLE CLIENT DISCONNECT
   connection.on('close', function(connection) {
-    log('Connection ' + connection.remoteAddress + ' disconnected');
+    log.info('Connection ' + connection.remoteAddress + ' disconnected');
 
     // remove connection for list of connected clients
     clients.splice(index, 1);
