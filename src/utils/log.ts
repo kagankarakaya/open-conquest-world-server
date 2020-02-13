@@ -1,39 +1,39 @@
-const {transports, createLogger, format} = require('winston');
+const {createLogger, format, transports} = require('winston');
+const {combine, timestamp, printf} = format;
 
-const logger = createLogger({
-  // format: format.combine(
-  //   format.timestamp(),
-  //   format.json()
-  // ),
-  transports: [
-    new transports.Console({
-      json: true,
-    }),
-    // new transports.File({filename: '../../logs/error/error.log', level: 'error'}),
-    // new transports.File({filename: '../../logs/activity/activity.log', level:'info'})
-  ],
+const myFormat = printf(({level, message, timestamp}) => {
+  return `{\n "time":"${timestamp}",\n "level":"${level}",\n "message":"${message}"\n}`;
 });
 
-logger.info('Logging started.');
+const logger = createLogger({
+  format: combine(
+      format.colorize(),
+      timestamp(),
+      myFormat,
+  ),
+  transports: [new transports.Console()],
+});
 
-/**
- *
- *
- * @export
- * @param {*} msg
- */
-function log(msg) {
-  logger.info(msg);
-}
+// /**
+//  *
+//  *
+//  * @export
+//  * @param {*} msg
+//  */
+// function log(msg) {
+//   logger.info(msg);
+// }
 
-/**
- *
- *
- * @export
- * @param {*} msg
- */
-function logError(msg) {
-  logger.error(msg);
-}
+// /**
+//  *
+//  *
+//  * @export
+//  * @param {*} msg
+//  */
+// function logError(msg) {
+//   logger.error(msg);
+// }
 
-export {log, logError};
+export {logger as log};
+
+// export {log, logError};
