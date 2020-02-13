@@ -49,7 +49,12 @@ export class WorldServices {
       } catch (err) {
         reject(err);
       }
-      services.get(json.serviceName).handle(json)
+      // check if service exists
+      if (services.get(json.service) === null) {
+        reject(new Error('Unrecognized service: ' + json.service));
+        return;
+      }
+      services.get(json.service).handle(json)
           .then((res) => {
             const response = JSON.stringify(res);
             log('WorldService returning response: ' + response);

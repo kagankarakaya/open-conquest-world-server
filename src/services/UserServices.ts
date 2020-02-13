@@ -29,8 +29,9 @@ export class UserServices extends BaseServices {
     // set properties for this specific service
     this.serviceName = ServiceNames.User;
     this.handlers = {
-      'get': this.getUsers,
-      'login': this.loginUser,
+      'get': this.getUsers.bind(this),
+      'login': this.loginUser.bind(this),
+      'registerUser': this.registerUser.bind(this),
     };
     // set repos from construtor
     this.userRepository = userRepository;
@@ -54,12 +55,11 @@ export class UserServices extends BaseServices {
       if (username === null || password === null ||
           username.length < 10 || password.length < 10 ||
           username.length > 20 || password.length > 20) {
-        reject(new Error('Invalid username or password'));
+        return reject(new Error('Invalid username or password'));
       }
 
       // hash password
       const hashedPassword = bcrypt.hashSync(password, 8);
-
       userRepository.createUser(username, hashedPassword)
           .then((registeredUser) => {
             // generate jwt for newly registered user
@@ -101,7 +101,7 @@ export class UserServices extends BaseServices {
       if (username === null || password === null ||
         username.length < 10 || password.length < 10 ||
         username.length > 20 || password.length > 20) {
-        reject(new Error('Invalid username or password'));
+        return reject(new Error('Invalid username or password'));
       }
 
       userRepository.getUserPasswordWithUsername(username)
