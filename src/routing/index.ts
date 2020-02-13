@@ -1,5 +1,5 @@
 // CREATE WORLD SERVICES
-import {WorldServices} from 'src/routing/WorldServices';
+import {WorldServices} from './WorldServices';
 
 import {
   armyServices,
@@ -8,7 +8,7 @@ import {
   marchServices,
   tileServices,
   userServices,
-} from 'src/services';
+} from '../services';
 
 const worldServices = new WorldServices();
 worldServices.registerService(armyServices);
