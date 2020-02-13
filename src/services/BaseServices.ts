@@ -33,6 +33,9 @@ export class BaseServices {
 
     log(clazz + ' received request: ' + JSON.stringify(request));
     return new Promise( function(resolve, reject) {
+      if (handlers[request.operation] === undefined) {
+        return reject(new Error('Unsupported operation: ' + request.operation));
+      }
       handlers[request.operation](request)
           .then((res) => {
             const response = new Response(serviceName, request.operation, res);
@@ -40,7 +43,8 @@ export class BaseServices {
             resolve(response);
           })
           .catch((err) => {
-            reject(err);
+            console.log(err.stack);
+            reject(err.stack);
           });
     });
   }
