@@ -63,7 +63,7 @@ describe('WorldService', function() {
           assert(res.getData() === true);
         })
         .catch((err) => {
-          log(err);
+          log.error(err);
           throw err;
         });
   });
@@ -82,7 +82,7 @@ describe('WorldService', function() {
           assert.fail('Expected error');
         })
         .catch((err) => {
-          log(err);
+          log.error(err);
         });
   });
 });

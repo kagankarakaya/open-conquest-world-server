@@ -2,8 +2,6 @@ import { worldServices } from "../../../src/routing";
 import * as chai from 'chai';
 import * as mocha from 'mocha';
 import {log} from '../../../src/utils/log';
-import { Response } from '../../../src/Response';
-import { Request } from "../../../src/Request";
 import { ServiceNames } from "../../../src/services/ServiceNames";
 import { ServiceOperations } from "../../../src/services/ServiceOperations";
 import { models } from "../../../src/models";
@@ -43,6 +41,7 @@ describe('WorldServices', function() {
           assert(response.data.operation === ServiceOperations.RegisterUser);
         })
         .catch((err) => {
+          log.error(err.message);
           assert.fail(err);
         });
   });
@@ -59,8 +58,7 @@ describe('WorldServices', function() {
           assert.fail('Expected unrecognized service error');
         })
         .catch((err) => {
-          console.log(err.message);
-          assert(err.message === 'Unrecognized service: unRecognizedService');
+          assert(err.message === 'Unrecognized service: unRecognizedService', 'Didn\'t get unsrecognized service error');
         });
   });
 });

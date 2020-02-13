@@ -67,7 +67,7 @@ export class Response {
     try {
       return new Response(json.service, json.operation, json.data);
     } catch (err) {
-      log(err);
+      log.error(err);
       throw new Error('Badly formatted json response.');
     }
   }

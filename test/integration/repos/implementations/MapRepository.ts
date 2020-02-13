@@ -12,7 +12,7 @@ describe('MapRepository', function() {
       expect(maps ).to.be.not.null;
       throw new Error('no strong assertions');
     } catch (err) {
-      log(err);
+      log.error(err);
       throw err;
     }
   });

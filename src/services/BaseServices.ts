@@ -31,7 +31,7 @@ export class BaseServices {
     const serviceName = this.serviceName;
     const clazz = this.constructor.name;
 
-    log(clazz + ' received request: ' + JSON.stringify(request));
+    log.info(clazz + ' received request: ' + JSON.stringify(request));
     return new Promise( function(resolve, reject) {
       if (handlers[request.operation] === undefined) {
         return reject(new Error('Unsupported operation: ' + request.operation));
@@ -39,11 +39,11 @@ export class BaseServices {
       handlers[request.operation](request)
           .then((res) => {
             const response = new Response(serviceName, request.operation, res);
-            log(clazz + ' returning response: ' + JSON.stringify(response));
+            log.info(clazz + ' returning response: ' + JSON.stringify(response));
             resolve(response);
           })
           .catch((err) => {
-            console.log(err.stack);
+            log.error(err.stack);
             reject(err.stack);
           });
     });
