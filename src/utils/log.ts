@@ -14,26 +14,4 @@ const logger = createLogger({
   transports: [new transports.Console()],
 });
 
-// /**
-//  *
-//  *
-//  * @export
-//  * @param {*} msg
-//  */
-// function log.info(msg) {
-//   logger.info(msg);
-// }
-
-// /**
-//  *
-//  *
-//  * @export
-//  * @param {*} msg
-//  */
-// function logError(msg) {
-//   logger.error(msg);
-// }
-
 export {logger as log};
-
-// export {log, logError};
