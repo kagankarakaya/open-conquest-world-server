@@ -1,6 +1,6 @@
 import * as chai from 'chai';
 import * as mocha from 'mocha';
-import {log} from '../../../src/utils/log';
+import {log} from '../../../src/shared/log';
 import {models} from '../../../src/models/';
 import {userServices} from '../../../src/services';
 import { Request } from '../../../src/Request';

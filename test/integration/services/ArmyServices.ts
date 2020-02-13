@@ -1,6 +1,6 @@
 import * as chai from 'chai';
 import * as mocha from 'mocha';
-import {log} from '../../../src/utils/log';
+import {log} from '../../../src/shared/log';
 import {ArmyUnits, UnitType} from '../../../src/domain/ArmyUnits';
 import {Army} from '../../../src/domain/Army';
 import {EntityId} from '../../../src/domain/Entity';

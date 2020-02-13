@@ -3,7 +3,7 @@ import * as chai from 'chai';
 import * as mocha from 'mocha';
 import {userRepository} from '../../../../src/repos/implementations/';
 import {models} from '../../../../src/models';
-import {log} from '../../../../src/utils/log';
+import {log} from '../../../../src/shared/log';
 
 describe('UserRepository', function() {
   const assert = chai.assert;

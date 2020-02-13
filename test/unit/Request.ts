@@ -3,7 +3,7 @@ import * as mocha from 'mocha';
 import {Request} from "../../src/Request";
 import {ServiceNames} from "../../src/services/ServiceNames";
 import {ServiceOperations} from "../../src/services/ServiceOperations";
-import {log} from '../../src/utils/log';
+import {log} from '../../src/shared/log';
 
 const assert = chai.assert;
 const expect = chai.expect;

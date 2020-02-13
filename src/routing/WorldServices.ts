@@ -1,4 +1,4 @@
-import {log} from '../utils/log';
+import {log} from '../shared/log';
 import {Request} from '../Request';
 import {BaseServices} from '../services/BaseServices';
 import {ServiceNames} from '../services/ServiceNames';
