@@ -52,4 +52,20 @@ describe('JWTMiddleware', function() {
           assert.fail(err.message);
         });
   });
+
+  it('should fail with a invalid JWT', async function() {
+    throw new Error('no impl');
+  });
+
+  it('should fail when a JWT is not included', async function() {
+    throw new Error('no impl');
+  });
+
+  it('should fail when the request data is null', async function() {
+    throw new Error('no impl');
+  });
+
+  it('should fail with a JWT signed with a different secret', async function() {
+    throw new Error('no impl');
+  });
 });

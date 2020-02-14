@@ -17,9 +17,7 @@ export class JWTMiddleware {
    *
    * @memberof JWTMiddleware
    */
-  constructor() {
-
-  }
+  constructor() {}
 
   /**
    * Check to see whether a JWT is valid. This method will
