@@ -1,5 +1,5 @@
 import {City} from '../../domain/City';
-import { ICityRepository } from '../ICityRepository';
+import {ICityRepository} from '../ICityRepository';
 
 /**
  * Sequelize implementation of the `ICityRepository`
@@ -27,7 +27,7 @@ export class CityRepository implements ICityRepository {
     return new Promise( function(resolve, reject) {
       models.city.findAll()
           .then((cities) => {
-          resolve(cities);
+            resolve(cities);
           })
           .catch((err) => {
             reject(err);

@@ -1,6 +1,6 @@
-import { ServiceNames } from "./services/ServiceNames";
-import { ServiceOperations } from "./services/ServiceOperations";
-import { log } from "./shared/log";
+import {ServiceNames} from './services/ServiceNames';
+import {ServiceOperations} from './services/ServiceOperations';
+import {log} from './shared/log';
 
 /**
  *

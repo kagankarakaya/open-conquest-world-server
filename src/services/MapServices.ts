@@ -1,6 +1,6 @@
 import {BaseServices} from './BaseServices';
-import { ServiceNames } from './ServiceNames';
-import { IMapRepository } from 'src/repos/IMapRepository';
+import {ServiceNames} from './ServiceNames';
+import {IMapRepository} from 'src/repos/IMapRepository';
 
 /**
  *

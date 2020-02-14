@@ -1,13 +1,13 @@
 import * as chai from 'chai';
 import * as mocha from 'mocha';
-import {WorldServices} from "../../src/routing/WorldServices"
-import {BaseServices} from "../../src/services/BaseServices";
-import {ArmyServices} from "../../src/services/ArmyServices";
-import {UserServices} from "../../src/services/UserServices";
-import {Request} from "../../src/Request";
-import {Response} from "../../src/Response";
-import {ServiceNames} from "../../src/services/ServiceNames";
-import {ServiceOperations} from "../../src/services/ServiceOperations";
+import {WorldServices} from '../../src/routing/WorldServices'
+import {BaseServices} from '../../src/services/BaseServices';
+import {ArmyServices} from '../../src/services/ArmyServices';
+import {UserServices} from '../../src/services/UserServices';
+import {Request} from '../../src/Request';
+import {Response} from '../../src/Response';
+import {ServiceNames} from '../../src/services/ServiceNames';
+import {ServiceOperations} from '../../src/services/ServiceOperations';
 import {log} from '../../src/shared/log';
 import { armyServices, userServices } from '../../src/services';
 

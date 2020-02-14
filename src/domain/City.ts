@@ -8,7 +8,7 @@ export enum CityLevel {
   Two,
   Three,
   Four,
-  Five
+  Five,
 }
 
 /**

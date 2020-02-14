@@ -1,7 +1,7 @@
 import {BaseServices} from './BaseServices';
 import {models} from '../models';
-import { ServiceNames } from './ServiceNames';
-import { ICityRepository } from 'src/repos/ICityRepository';
+import {ServiceNames} from './ServiceNames';
+import {ICityRepository} from 'src/repos/ICityRepository';
 
 /**
  *

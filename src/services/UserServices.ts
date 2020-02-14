@@ -68,7 +68,6 @@ export class UserServices extends BaseServices {
                 config.secret,
                 {expiresIn: '1h'},
             );
-
             // build & return response with jwt
             const response = new Response(
                 ServiceNames.User,

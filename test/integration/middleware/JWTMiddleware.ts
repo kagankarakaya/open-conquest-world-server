@@ -37,7 +37,6 @@ describe('JWTMiddleware', function() {
         .then((response) => {
           // get jwt from response
           const token = response.data;
-          log.info(token);
           // create new request with token
           const getArmiesData = {
             'token': token,
@@ -53,16 +52,43 @@ describe('JWTMiddleware', function() {
         });
   });
 
-  it('should fail with a invalid JWT', async function() {
-    throw new Error('no impl');
+  it('should fail with a badly formatted JWT', async function() {
+    const token = 'asdfasdf.asdfasdfasdf23f.asdf23f213';
+    // create new request with badly formatted token
+    const getArmiesData = {
+      'token': token,
+    };
+    const getArmiesRequest = new Request(ServiceNames.Army, ServiceOperations.GetArmies, getArmiesData);
+    try {
+      jwtMiddleware.checkJwt(getArmiesRequest);
+      assert.fail('Expected error');
+    } catch (err) {
+      assert(err.message === 'Access denied, invalid authorization token.');
+    }
   });
 
   it('should fail when a JWT is not included', async function() {
-    throw new Error('no impl');
+    // create new request without token
+    const getArmiesData = {};
+    const getArmiesRequest = new Request(ServiceNames.Army, ServiceOperations.GetArmies, getArmiesData);
+    try {
+      jwtMiddleware.checkJwt(getArmiesRequest);
+      assert.fail('Expected error');
+    } catch (err) {
+      assert(err.message === 'Expected authorization token in request');
+    };
   });
 
   it('should fail when the request data is null', async function() {
-    throw new Error('no impl');
+    // create new request without token
+    const getArmiesData = undefined;
+    const getArmiesRequest = new Request(ServiceNames.Army, ServiceOperations.GetArmies, getArmiesData);
+    try {
+      jwtMiddleware.checkJwt(getArmiesRequest);
+      assert.fail('Expected error');
+    } catch (err) {
+      assert(err.message === 'Expected authorization token in request');
+    };
   });
 
   it('should fail with a JWT signed with a different secret', async function() {

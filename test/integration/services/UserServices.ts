@@ -3,9 +3,9 @@ import * as mocha from 'mocha';
 import {log} from '../../../src/shared/log';
 import {models} from '../../../src/models/';
 import {userServices} from '../../../src/services';
-import { Request } from '../../../src/Request';
-import { ServiceNames } from '../../../src/services/ServiceNames';
-import { ServiceOperations } from '../../../src/services/ServiceOperations';
+import {Request} from '../../../src/Request';
+import {ServiceNames} from '../../../src/services/ServiceNames';
+import {ServiceOperations} from '../../../src/services/ServiceOperations';
 const assert = chai.assert;
 
 describe('UserServices', function() {

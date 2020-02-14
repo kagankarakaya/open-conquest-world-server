@@ -38,7 +38,6 @@ export class JWTMiddleware {
     try {
       // check if token is valid
       const payload = jwt.verify(token, config.secret);
-      log.info(payload);
       // get the user
       const username = payload.username;
       // set the user to the request

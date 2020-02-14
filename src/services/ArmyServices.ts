@@ -5,9 +5,9 @@ import {ArmyRepository} from '../repos/implementations/ArmyRepository';
 import {Army} from '../domain/Army';
 import {User} from '../domain/User';
 import {EntityId} from '../domain/Entity';
-import { ServiceNames } from './ServiceNames';
-import { IArmyRepository } from '../repos/IArmyRepository';
-import { ServiceOperations } from './ServiceOperations';
+import {ServiceNames} from './ServiceNames';
+import {IArmyRepository} from '../repos/IArmyRepository';
+import {ServiceOperations} from './ServiceOperations';
 
 /**
  *
