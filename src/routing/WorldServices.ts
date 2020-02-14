@@ -54,6 +54,11 @@ export class WorldServices {
         reject(new Error('Unrecognized service: ' + json.service));
         return;
       }
+      // check if user is authorized for route
+      // ensure that user is only doing something that they're allowed to...
+      // for example a user shouldn't be able to create a march for another user
+      // or something along those lines
+      // SOLUTION: jwt middleware sets the user of the request by username
       services.get(json.service).handle(json)
           .then((res) => {
             const response = JSON.stringify(res);
