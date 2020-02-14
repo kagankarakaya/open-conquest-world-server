@@ -110,7 +110,7 @@ export class UserServices extends BaseServices {
             if (bcrypt.compareSync(password, user.getPassword())) {
               // generate jwt for newly registered user
               const token = jwt.sign(
-                  {userId: user.getId(), username: user.getUsername()},
+                  {username: user.getUsername()},
                   config.secret,
                   {expiresIn: '1h'},
               );

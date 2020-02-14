@@ -37,13 +37,18 @@ export class JWTMiddleware {
     if (token === undefined) {
       throw new Error('Expected authorization token in request');
     }
-    // check if token is valid
-    const payload = jwt.verify(token, config.secret);
-    console.log(payload);
-    // get the user
-    const username = payload.username;
-    // set the user to the request
-    request.data.username = username;
-    return request;
+    try {
+      // check if token is valid
+      const payload = jwt.verify(token, config.secret);
+      log.info(payload);
+      // get the user
+      const username = payload.username;
+      // set the user to the request
+      request.data.username = username;
+      return request;
+    } catch (err) {
+      log.error(err);
+      throw new Error('Access denied, invalid authorization token.');
+    }
   }
 }
