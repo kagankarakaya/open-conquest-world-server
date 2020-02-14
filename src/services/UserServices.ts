@@ -64,7 +64,7 @@ export class UserServices extends BaseServices {
           .then((registeredUser) => {
             // generate jwt for newly registered user
             const token = jwt.sign(
-                {userId: registeredUser.getId(), username: registeredUser.getUsername()},
+                {username: registeredUser.getUsername()},
                 config.secret,
                 {expiresIn: '1h'},
             );

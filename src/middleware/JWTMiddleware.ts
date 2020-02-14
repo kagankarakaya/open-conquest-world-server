@@ -30,11 +30,16 @@ export class JWTMiddleware {
    */
   checkJwt(request: Request): Request {
     // first get the jwt from the request
-    const token = request.data.token;
-    // if no jwt error
-    if (token === undefined) {
+    let token;
+    try {
+      token = request.data.token;
+      if (token === undefined) {
+        throw new Error('Expected authorization token in request');
+      }
+    } catch (err) {
       throw new Error('Expected authorization token in request');
     }
+    // check if token is valid
     try {
       // check if token is valid
       const payload = jwt.verify(token, config.secret);

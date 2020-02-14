@@ -2,12 +2,13 @@ import * as chai from 'chai';
 import * as mocha from 'mocha';
 import {Response} from '../../../src/Response';
 import {JWTMiddleware} from '../../../src/middleware/JWTMiddleware';
-import { userServices } from '../../../src/services';
-import { Request } from '../../../src/Request';
-import { ServiceNames } from '../../../src/services/ServiceNames';
-import { ServiceOperations } from '../../../src/services/ServiceOperations';
-import { models } from '../../../src/models';
-import { log } from '../../../src/shared/log';
+import {userServices} from '../../../src/services';
+import {Request} from '../../../src/Request';
+import {ServiceNames} from '../../../src/services/ServiceNames';
+import {ServiceOperations} from '../../../src/services/ServiceOperations';
+import {models} from '../../../src/models';
+import {log} from '../../../src/shared/log';
+import * as jwt from 'jsonwebtoken';
 
 const jwtMiddleware = new JWTMiddleware();
 
@@ -92,6 +93,23 @@ describe('JWTMiddleware', function() {
   });
 
   it('should fail with a JWT signed with a different secret', async function() {
-    throw new Error('no impl');
+    const username = 'test_username';
+    const notSecret = 'not_secret';
+    const token = jwt.sign(
+        {username: username},
+        notSecret,
+        {expiresIn: '1h'},
+    );
+    const getArmiesData = {
+      'token': token
+    };
+    const getArmiesRequest = new Request(ServiceNames.Army, ServiceOperations.GetArmies, getArmiesData);
+    try {
+      jwtMiddleware.checkJwt(getArmiesRequest);
+      assert.fail('Expected invalid jwt error');
+    } catch (err) {
+      log.error(err);
+      assert(err.message === 'Access denied, invalid authorization token.');
+    }
   });
 });
