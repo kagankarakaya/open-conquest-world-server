@@ -1,4 +1,4 @@
-import { User } from "../domain/User";
+import {User} from '../domain/User';
 
 export interface IUserRepository {
   createUser(username: string, password: string): Promise<User>

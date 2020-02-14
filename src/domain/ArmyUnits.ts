@@ -1,5 +1,5 @@
-import {Entity} from "./Entity";
-import {EntityId} from "./Entity";
+import {Entity} from './Entity';
+import {EntityId} from './Entity';
 
 /**
  * `UnitType` is an enum for the discrete unit types in the game.

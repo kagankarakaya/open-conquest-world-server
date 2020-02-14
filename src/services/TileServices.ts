@@ -1,8 +1,8 @@
 import {BaseServices} from './BaseServices';
 import {models} from '../models';
-import {log} from '../utils/log';
-import { ServiceNames } from './ServiceNames';
-import { ITileRepository } from 'src/repos/ITileRepository';
+import {log} from '../shared/log';
+import {ServiceNames} from './ServiceNames';
+import {ITileRepository} from 'src/repos/ITileRepository';
 
 /**
  *

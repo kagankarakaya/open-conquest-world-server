@@ -1,5 +1,5 @@
 import {Army} from '../domain/Army';
-import { User } from 'src/domain/User';
+import {User} from 'src/domain/User';
 
 export interface IArmyRepository {
   getAllArmies(user: User): Promise<Array<Army>>

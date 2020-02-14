@@ -2,7 +2,7 @@
  * The WorldServer module is responsible for running the WSS, managing the
  * connections to the server, and dispatching request to the World Services.
  */
-import {log} from 'src/utils/log';
+import {log} from 'src/shared/log';
 import {server as WSS} from 'websocket';
 import * as HTTP from 'http';
 const PORT = 1337;

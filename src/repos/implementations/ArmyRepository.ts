@@ -1,7 +1,7 @@
 import {User} from '../../domain/User';
 import {Army} from '../../domain/Army';
 import {ArmyUnits} from '../../domain/ArmyUnits';
-import {log} from '../../utils/log';
+import {log} from '../../shared/log';
 import { IArmyRepository } from '../IArmyRepository';
 
 /**

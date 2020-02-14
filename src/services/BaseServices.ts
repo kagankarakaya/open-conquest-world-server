@@ -1,4 +1,4 @@
-import {log} from '../utils/log';
+import {log} from '../shared/log';
 import {Response} from '../Response';
 import {ServiceNames} from './ServiceNames';
 

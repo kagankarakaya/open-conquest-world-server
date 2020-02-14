@@ -1,7 +1,7 @@
 import {BaseServices} from './BaseServices';
 import {ServiceNames} from '../services/ServiceNames';
 import {ServiceOperations} from '../services/ServiceOperations';
-import {log} from '../utils/log';
+import {log} from '../shared/log';
 import {IUserRepository} from '../repos/IUserRepository';
 import {Request} from '../Request';
 import {Response} from '../Response';
@@ -64,11 +64,10 @@ export class UserServices extends BaseServices {
           .then((registeredUser) => {
             // generate jwt for newly registered user
             const token = jwt.sign(
-                {userId: registeredUser.getId(), username: registeredUser.getUsername()},
+                {username: registeredUser.getUsername()},
                 config.secret,
                 {expiresIn: '1h'},
             );
-
             // build & return response with jwt
             const response = new Response(
                 ServiceNames.User,
@@ -110,7 +109,7 @@ export class UserServices extends BaseServices {
             if (bcrypt.compareSync(password, user.getPassword())) {
               // generate jwt for newly registered user
               const token = jwt.sign(
-                  {userId: user.getId(), username: user.getUsername()},
+                  {username: user.getUsername()},
                   config.secret,
                   {expiresIn: '1h'},
               );

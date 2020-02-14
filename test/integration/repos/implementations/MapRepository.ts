@@ -1,7 +1,7 @@
 import * as chai from 'chai';
 import * as mocha from 'mocha';
 import {mapRepository} from '../../../../src/repos/implementations/';
-import {log} from '../../../../src/utils/log';
+import {log} from '../../../../src/shared/log';
 
 const expect = chai.expect;
 
